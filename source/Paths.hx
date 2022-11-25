@@ -9,9 +9,15 @@ class Paths
 {
 	inline public static var SOUND_EXT = "ogg";
 
-	public static function file(file:String)
+	static var currentLevel:String;
+
+	static public function file(file:String)
 	{
-		return 'assets/$file';
+		var path = 'assets/$file';
+		if (currentLevel != null && OpenFlAssets.exists('$currentLevel:$path'))
+			return '$currentLevel:$path';
+
+		return path;
 	}
 
         inline static public function txt(key:String)
