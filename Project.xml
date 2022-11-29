@@ -34,7 +34,7 @@
 
 	<source path="source" />
 
-	<assets path="assets/fonts/" embed='true'/>
+	<assets path="assets/fonts" embed='true'/>
 	<assets path="assets/" rename="assets" exclude="*.mp3"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
