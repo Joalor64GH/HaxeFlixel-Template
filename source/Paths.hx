@@ -1,23 +1,32 @@
 package;
 
-import openfl.utils.Assets as OpenFlAssets;
-
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 class Paths
 {
 	inline public static final SOUND_EXT = #if !html5 "ogg" #else "mp3" #end;
+	inline public static final VIDEO_EXT = "mp4";
+	inline public static final DEFAULT_FOLDER:String = 'assets';
 
-	static var currentLevel:String;
-
-	static public function file(file:String)
+	static public function getPath(folder:Null<String>, file:String)
 	{
-		var path = 'assets/$file';
-		if (currentLevel != null && OpenFlAssets.exists('$currentLevel:$path'))
-			return '$currentLevel:$path';
+		if (folder == null)
+			folder = DEFAULT_FOLDER;
+		return folder + '/' + file;
+	}
 
-		return path;
+	static public function file(file:String, folder:String = DEFAULT_FOLDER)
+	{
+		if (#if sys FileSystem.exists(folder) && #end (folder != null && folder != DEFAULT_FOLDER))
+		{
+			return getPath(folder, file);
+		}
+		return getPath(null, file);
 	}
 
 	inline static public function txt(key:String)
@@ -28,6 +37,23 @@ class Paths
 	inline static public function xml(key:String)
 	{
 		return file('data/$key.xml');
+	}
+
+	inline static public function json(key:String)
+	{
+		return file('data/$key.json');
+	}
+
+	#if yaml
+	inline static public function yaml(key:String)
+	{
+		return file('data/$key.yaml');
+	}
+	#end
+
+	inline static public function video(key:String)
+	{
+		return file('videos/$key.$VIDEO_EXT');
 	}
 
 	inline static public function sound(key:String)
@@ -64,4 +90,4 @@ class Paths
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), file('images/$key.txt'));
 	}
-}  
+}
