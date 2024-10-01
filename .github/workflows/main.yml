@@ -10,7 +10,7 @@ on:
 
 jobs:
   buildLinux:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@main
@@ -32,7 +32,6 @@ jobs:
       - name: Set Cache Status
         id: cache-status
         run: echo CACHE_HIT=${{ steps.cache-build-restore.outputs.cache-hit }} | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-        shell: powershell
 
       - name: Installing Libraries
         run: haxe --interp -cp ./actions/libs-installer -D analyzer-optimize -main Main
@@ -88,7 +87,7 @@ jobs:
       - name: Set Cache Status
         id: cache-status
         run: echo CACHE_HIT=${{ steps.cache-build-restore.outputs.cache-hit }} | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-        shell: powershell
+        shell: cmd
 
       - name: Installing Libraries
         run: haxe --interp -cp ./actions/libs-installer -D analyzer-optimize -main Main
@@ -142,7 +141,6 @@ jobs:
       - name: Set Cache Status
         id: cache-status
         run: echo CACHE_HIT=${{ steps.cache-build-restore.outputs.cache-hit }} | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-        shell: powershell
 
       - name: Installing Libraries
         run: haxe --interp -cp ./actions/libs-installer -D analyzer-optimize -main Main
