@@ -3,10 +3,8 @@ package;
 import flixel.text.FlxText;
 import flixel.FlxState;
 
-class PlayState extends FlxState
-{
-	override public function create()
-	{
+class PlayState extends FlxState {
+	override public function create() {
 		super.create();
 
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
@@ -14,8 +12,7 @@ class PlayState extends FlxState
 		add(text);
 	}
 
-	override public function update(elapsed:Float)
-	{
+	override public function update(elapsed:Float) {
 		super.update(elapsed);
 	}
 }
