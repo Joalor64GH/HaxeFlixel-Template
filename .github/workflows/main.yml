@@ -10,7 +10,7 @@ on:
 
 jobs:
   buildLinux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@main
@@ -28,10 +28,6 @@ jobs:
             export/release/linux/haxe/
             export/release/linux/obj/
           key: cache-build-linux
-
-      - name: Set Cache Status
-        id: cache-status
-        run: echo CACHE_HIT=${{ steps.cache-build-restore.outputs.cache-hit }} | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
 
       - name: Installing Libraries
         run: haxe --interp -cp ./actions/libs-installer -D analyzer-optimize -main Main
@@ -84,11 +80,6 @@ jobs:
             export/release/windows/obj/
           key: cache-build-windows
 
-      - name: Set Cache Status
-        id: cache-status
-        run: echo CACHE_HIT=${{ steps.cache-build-restore.outputs.cache-hit }} | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-        shell: cmd
-
       - name: Installing Libraries
         run: haxe --interp -cp ./actions/libs-installer -D analyzer-optimize -main Main
       - name: Create Version Tag
@@ -137,10 +128,6 @@ jobs:
             export/release/macos/haxe/
             export/release/macos/obj/
           key: cache-build-mac
-
-      - name: Set Cache Status
-        id: cache-status
-        run: echo CACHE_HIT=${{ steps.cache-build-restore.outputs.cache-hit }} | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
 
       - name: Installing Libraries
         run: haxe --interp -cp ./actions/libs-installer -D analyzer-optimize -main Main
